@@ -74,7 +74,6 @@ export default function Home() {
 
     return (
         <div className="min-h-screen w-full relative">
-            <Script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js" strategy="beforeInteractive" />
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
                 <div className="w-full max-w-4xl mx-auto">
                     <div className="flex items-center justify-center overflow-visible h-32">

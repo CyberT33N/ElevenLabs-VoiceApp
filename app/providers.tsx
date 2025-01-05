@@ -29,6 +29,8 @@ import * as React from 'react'
 
 // ==== COMPONENTS ====
 import Loading from '@/components/Loader'
+import { LoadingContext } from './loadingContext'
+
 export interface ProvidersProps {
 	children: React.ReactNode;
 	themeProps?: ThemeProviderProps;
@@ -80,13 +82,14 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     return (
         <NextUIProvider navigate={router.push}>
             <NextThemesProvider {...themeProps}>
-                <div className="relative flex flex-col h-screen" id="rootLayout">
-                    {loading && <Loading />}
-
-                    <div ref={contentRef} className={loading ? 'hidden' : ''}>
-                        {children}
+                <LoadingContext.Provider value={{ loading, setLoading }}>
+                    <div className="relative flex flex-col h-screen" id="rootLayout">
+                        {loading && <Loading />}
+                        <div ref={contentRef} className={loading ? 'hidden' : ''}>
+                            {children}
+                        </div>
                     </div>
-                </div>
+                </LoadingContext.Provider>
             </NextThemesProvider>
         </NextUIProvider>
     )

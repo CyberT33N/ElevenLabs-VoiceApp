@@ -17,6 +17,7 @@ import { MicrophoneIcon } from './icons';
 import axiosRequestWrapper from '@/utils/axiosRequestWrapper';
 import { BaseError } from 'error-manager-helper';
 import { HttpClientError } from 'error-manager-helper';
+import { useLoading } from '@/app/loadingContext';
 
 /**
  * 📋 Interface for Voice data structure
@@ -58,10 +59,22 @@ export default function VoiceBot() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [showAudio, setShowAudio] = useState(false);
+    const [showAnimation, setShowAnimation] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
     const { theme } = useTheme();
+    const { loading } = useLoading();
 
     // 🔄 Lifecycle Management
+    useEffect(() => {
+        if (!loading) {
+            // Start animation after loading is complete with a small delay
+            const timer = setTimeout(() => {
+                setShowAnimation(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [loading]);
+
     useEffect(() => {
         fetchVoices();
     }, []);
@@ -166,8 +179,8 @@ export default function VoiceBot() {
     };
 
     const glassStyle = {
-        backdropFilter: 'blur(10px)',
-        boxShadow: '0 0 20px rgba(147, 51, 234, 0.3), 0 0 40px rgba(236, 72, 153, 0.1)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         border: '1px solid rgba(255, 255, 255, 0.18)',
         background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%)',
         opacity: 0,
@@ -179,10 +192,10 @@ export default function VoiceBot() {
             initial={{ ...glassStyle }}
             animate={{
                 ...glassStyle,
-                opacity: 1,
-                transform: 'translateY(0) translateZ(0)'
+                opacity: showAnimation ? 1 : 0,
+                transform: showAnimation ? 'translateY(0) translateZ(0)' : 'translateY(50px) translateZ(0)'
             }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
             className="relative w-full max-w-md mx-auto p-6 rounded-xl"
         >
             <style jsx>{`

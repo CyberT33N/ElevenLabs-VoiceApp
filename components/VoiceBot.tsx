@@ -225,6 +225,9 @@ export default function VoiceBot() {
                         (e: React.ChangeEvent<HTMLInputElement>) => setSelectedVoice(e.target.value)
                     }
                     className="w-full"
+                    classNames={{
+                        listbox: "max-h-[200px] overflow-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100 dark:scrollbar-thumb-pink-500 dark:scrollbar-track-pink-100/20"
+                    }}
                 >
                     {voices.map((voice) => (
                         <SelectItem key={voice.voice_id} value={voice.voice_id}>

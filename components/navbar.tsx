@@ -64,13 +64,16 @@ export const Navbar = () => {
 
     return (
         <NextUINavbar 
-            maxWidth="xl" 
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}
+            className="w-full max-w-full px-0"
+            classNames={{
+                wrapper: "px-0 max-w-full",
+                content: "px-6"
+            }}
             position="sticky"
             isBlurred={false}
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}
         >
             <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-
                 {/* ==== LOGO ==== */}
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink className="flex justify-start items-center gap-1" href="/">

@@ -35,7 +35,7 @@
 .text-transparent,
 .text-transparent .letter,
 .text-transparent .word {
-  background: linear-gradient(to right, #a855f7, #ec4899) !important;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8)) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

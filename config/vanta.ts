@@ -56,7 +56,7 @@ const vantaGlobeSettings = {
     logo3dScaleX: 1,
     logo3dScaleY: 1,
     logo3dScaleZ: 1,
-    logo3dSpeed: 0.005,
+    logo3dSpeed: 0.0005,
 
     backgroundColor: 0x0
 }

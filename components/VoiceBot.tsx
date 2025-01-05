@@ -241,9 +241,9 @@ export default function VoiceBot() {
                     animation: draw 2s ease-in-out forwards;
                 }
             `}</style>
-            <h2 className="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-3 dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-purple-400 dark:to-pink-600 text-white">
-                AI Voice Generator
-                <MicrophoneIcon />
+            <h2 className="text-xl sm:text-2xl font-bold mb-6 text-center flex flex-col sm:flex-row items-center justify-center sm:gap-3 text-white dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-purple-400 dark:to-pink-600">
+                <span className="mb-2 sm:mb-0">AI Voice Generator</span>
+                <MicrophoneIcon className="w-6 h-6" />
             </h2>
 
             <div className="space-y-4">

@@ -23,6 +23,7 @@
 import VoiceBot from '@/components/VoiceBot'
 import Script from 'next/script'
 import { useState, useEffect } from 'react';
+import anime from 'animejs';
 import './animation.css'
 
 /**

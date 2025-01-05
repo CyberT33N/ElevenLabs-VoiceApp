@@ -79,8 +79,8 @@ export default function Home() {
 
     return (
         <div className="min-h-screen w-full relative">
-            <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
-                <div className="w-full max-w-4xl mx-auto">
+            <main className="container mx-auto max-w-7xl pt-2 px-6 flex-grow flex items-center justify-center min-h-screen">
+                <div className="w-full max-w-4xl -mt-32">
                     <div className="flex items-center justify-center overflow-visible h-72 md:h-64">
                         <h1 className="ml2 text-6xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                             ElevenLabs Voice App

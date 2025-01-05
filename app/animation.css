@@ -1,9 +1,14 @@
 .ml2 {
   font-weight: 900;
   font-size: 3.5em;
-  height: 200px;
-  margin-top: 50px;
+  min-height: 2em;
+  margin-top: 0;
   visibility: hidden;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  line-height: 1.2;
+  align-items: center;
 }
 
 .ml2.visible {
@@ -15,4 +20,32 @@
   line-height: 1em;
   opacity: 0;
   transform: scale(4);
+}
+
+.ml2 .word {
+  display: inline-flex;
+  margin-right: 0.3em;
+  align-items: center;
+}
+
+.ml2 .word:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 768px) {
+  .ml2 {
+    font-size: 2.5em;
+    flex-direction: column;
+    align-items: center;
+    white-space: normal;
+    min-height: 4em;
+    line-height: 1.2;
+  }
+  
+  .ml2 .word {
+    display: flex;
+    justify-content: center;
+    margin: 0.2em 0;
+    margin-right: 0;
+  }
 }

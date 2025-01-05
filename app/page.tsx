@@ -45,7 +45,13 @@ export default function Home() {
                 setTimeout(() => {
                     const textWrapper = document.querySelector('.ml2');
                     if (textWrapper) {
-                        textWrapper.innerHTML = textWrapper.textContent!.replace(/\S/g, "<span class='letter'>$&</span>");
+                        // Split text into words and wrap each word and letter
+                        const words = textWrapper.textContent!.split(' ');
+                        textWrapper.innerHTML = words.map(word => 
+                            `<span class='word'>${word.split('').map(char => 
+                                `<span class='letter'>${char}</span>`
+                            ).join('')}</span>`
+                        ).join(' ');
                         
                         // First make the wrapper visible
                         textWrapper.classList.add('visible');
@@ -75,7 +81,7 @@ export default function Home() {
         <div className="min-h-screen w-full relative">
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
                 <div className="w-full max-w-4xl mx-auto">
-                    <div className="flex items-center justify-center overflow-visible h-32">
+                    <div className="flex items-center justify-center overflow-visible h-72 md:h-64">
                         <h1 className="ml2 text-6xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                             ElevenLabs Voice App
                         </h1>

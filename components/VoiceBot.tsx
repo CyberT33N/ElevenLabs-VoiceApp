@@ -13,7 +13,7 @@ import { Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { MicrophoneIcon } from './icons';
+import { MicrophoneIcon, DownloadIcon } from './icons';
 
 import axiosRequestWrapper from '@/utils/axiosRequestWrapper';
 import { BaseError } from 'error-manager-helper';
@@ -63,6 +63,8 @@ export default function VoiceBot() {
     const [showAnimation, setShowAnimation] = useState(false);
     const [showShadowAnimation, setShowShadowAnimation] = useState(false);
     const [showPulsingAnimation, setShowPulsingAnimation] = useState(false);
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [audioData, setAudioData] = useState<string | null>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
     const { theme } = useTheme();
     const { loading } = useLoading();
@@ -129,8 +131,10 @@ export default function VoiceBot() {
     
         setError(null);
         setIsLoading(true);
+        setShowAudio(false); // Reset audio state
         
         try {
+            console.log('Generating speech...'); // Debug log
             const response = await axiosRequestWrapper({
                 method: 'POST',
                 url: '/api/voice',
@@ -141,12 +145,15 @@ export default function VoiceBot() {
             });
     
             const contentType = response.headers['content-type'];
+            console.log('Response content type:', contentType); // Debug log
     
             if (!contentType?.includes('audio/mpeg')) {
                 throw new Error(`Invalid response type: ${contentType}`);
             }
     
             const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            console.log('Audio blob size:', audioBlob.size); // Debug log
+            
             if (audioBlob.size === 0) {
                 throw new Error('Received empty audio response');
             }
@@ -154,17 +161,10 @@ export default function VoiceBot() {
             const audioUrl = URL.createObjectURL(audioBlob);
             console.log('Audio URL created:', audioUrl); // Debug log
             
-            if (audioRef.current) {
-                audioRef.current.src = audioUrl;
-                console.log('Setting showAudio to true'); // Debug log
-                setShowAudio(true);
+            setAudioData(audioUrl);
+            setShowAudio(true);
+            console.log('Audio state updated'); // Debug log
 
-                try {
-                    await audioRef.current.play();
-                } catch (playError) {
-                    throw new Error(`Failed to play audio: ${playError instanceof Error ? playError.message : 'Unknown error'}`);
-                }
-            }
         } catch (error) {
             let errorMessage = 'Unknown error';
     
@@ -179,6 +179,27 @@ export default function VoiceBot() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleDownload = async () => {
+        if (!audioData) return;
+        
+        setIsDownloading(true);
+        try {
+            const response = await fetch(audioData);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `voice-message-${Date.now()}.mp3`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Download failed:', error);
+        }
+        setIsDownloading(false);
     };
 
     const glassStyle = {
@@ -279,9 +300,32 @@ export default function VoiceBot() {
                 </Button>
 
                 {/* 🔊 Audio Player */}
-                <div className={`transition-all duration-500 ${showAudio ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 hidden'}`}>
-                    <audio ref={audioRef} className="w-full mt-4" controls />
-                </div>
+                {showAudio && audioData && (
+                    <div className="flex items-center gap-4 mt-4">
+                        <audio
+                            ref={audioRef}
+                            controls
+                            src={audioData}
+                            className="w-full max-w-md"
+                        />
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        >
+                            <Button
+                                isIconOnly
+                                color="secondary"
+                                variant="shadow"
+                                className={`${isDownloading ? 'animate-pulse shadow-ready' : ''}`}
+                                onClick={handleDownload}
+                                disabled={isDownloading}
+                            >
+                                <DownloadIcon />
+                            </Button>
+                        </motion.div>
+                    </div>
+                )}
             </div>
         </motion.div>
     );

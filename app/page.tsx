@@ -21,6 +21,8 @@
 
 // ==== COMPONENTS ====
 import VoiceBot from '@/components/VoiceBot'
+import Script from 'next/script'
+import './animation.css'
 
 /**
  * @function Home
@@ -33,14 +35,43 @@ import VoiceBot from '@/components/VoiceBot'
 export default function Home() {
     return (
         <div className="min-h-screen w-full relative">
+            <Script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js" strategy="beforeInteractive" />
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
                 <div className="w-full max-w-4xl mx-auto">
-                    <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                        ElevenLabs Voice App
-                    </h1>
+                    <div className="flex items-center justify-center overflow-visible h-32">
+                        <h1 className="ml2 text-6xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                            ElevenLabs Voice App
+                        </h1>
+                    </div>
                     <VoiceBot />
                 </div>
             </main>
         </div>
     )
+}
+
+// Animation initialization
+const initAnimation = () => {
+    if (typeof window !== 'undefined') {
+        const textWrapper = document.querySelector('.ml2');
+        if (textWrapper) {
+            textWrapper.innerHTML = textWrapper.textContent!.replace(/\S/g, "<span class='letter'>$&</span>");
+
+            anime.timeline({loop: false})
+            .add({
+                targets: '.ml2 .letter',
+                scale: [4,1],
+                opacity: [0,1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 950,
+                delay: (el, i) => 70*i
+            });
+        }
+    }
+};
+
+// Run animation after component mount
+if (typeof window !== 'undefined') {
+    window.addEventListener('load', initAnimation);
 }

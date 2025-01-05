@@ -55,6 +55,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
             await initializeVanta(theme)
 
             setLoading(false)
+            document.body.classList.add('app-loaded')
         }
         
         loadThree()

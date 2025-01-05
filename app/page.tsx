@@ -22,6 +22,7 @@
 // ==== COMPONENTS ====
 import VoiceBot from '@/components/VoiceBot'
 import Script from 'next/script'
+import { useState, useEffect } from 'react';
 import './animation.css'
 
 /**
@@ -33,6 +34,43 @@ import './animation.css'
  * <Home />
  */
 export default function Home() {
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const checkLoading = () => {
+            const loadingState = document.body.classList.contains('app-loaded');
+            if (loadingState) {
+                setIsLoaded(true);
+                // Add a small delay before starting the animation
+                setTimeout(() => {
+                    const textWrapper = document.querySelector('.ml2');
+                    if (textWrapper) {
+                        textWrapper.innerHTML = textWrapper.textContent!.replace(/\S/g, "<span class='letter'>$&</span>");
+                        
+                        // First make the wrapper visible
+                        textWrapper.classList.add('visible');
+                        
+                        // Then start the letter animation
+                        anime.timeline({loop: false})
+                        .add({
+                            targets: '.ml2 .letter',
+                            scale: [4,1],
+                            opacity: [0,1],
+                            translateZ: 0,
+                            easing: "easeOutExpo",
+                            duration: 950,
+                            delay: (el, i) => 70*i
+                        });
+                    }
+                }, 100); // Reduced delay to make it more responsive
+            } else {
+                setTimeout(checkLoading, 100);
+            }
+        };
+        
+        checkLoading();
+    }, []);
+
     return (
         <div className="min-h-screen w-full relative">
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js" strategy="beforeInteractive" />
@@ -70,8 +108,3 @@ const initAnimation = () => {
         }
     }
 };
-
-// Run animation after component mount
-if (typeof window !== 'undefined') {
-    window.addEventListener('load', initAnimation);
-}

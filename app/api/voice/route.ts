@@ -1,9 +1,36 @@
+/*
+███████████████████████████████████████████████████████████████████████████████
+██******************** PRESENTED BY t33n Software ***************************██
+██                                                                           ██
+██                  ████████╗██████╗ ██████╗ ███╗   ██╗                      ██
+██                  ╚══██╔══╝╚════██╗╚════██╗████╗  ██║                      ██
+██                     ██║    █████╔╝ █████╔╝██╔██╗ ██║                      ██
+██                     ██║    ╚═══██╗ ╚═══██╗██║╚██╗██║                      ██
+██                     ██║   ██████╔╝██████╔╝██║ ╚████║                      ██
+██                     ╚═╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝                      ██
+██                                                                           ██
+███████████████████████████████████████████████████████████████████████████████
+███████████████████████████████████████████████████████████████████████████████
+*/
+
 import { NextRequest, NextResponse } from 'next/server';
-import { ElevenLabsAPI } from '@/app/services/elevenlabs';
+
+import {
+    ElevenLabsAPI,
+    type Voice, type TextToSpeechRequest
+} from '@/app/services/elevenlabs';
 
 const elevenlabs = new ElevenLabsAPI();
 
-export async function GET() {
+type VoicesResponse = {
+    voices: Voice[];
+};
+
+type ErrorResponse = {
+    error: string;
+};
+
+export async function GET(): Promise<NextResponse<VoicesResponse | ErrorResponse>> {
     try {
         const voices = await elevenlabs.getVoices();
         return NextResponse.json({ voices });
@@ -15,9 +42,11 @@ export async function GET() {
     }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(
+    request: NextRequest
+): Promise<NextResponse<Buffer | ErrorResponse>> {
     try {
-        const body = await request.json();
+        const body: TextToSpeechRequest = await request.json();
         const { text, voice_id, model_id, voice_settings } = body;
 
         if (!text || !voice_id) {
@@ -35,7 +64,7 @@ export async function POST(request: NextRequest) {
         });
 
         // Create response with proper headers for audio data
-        const response = new NextResponse(audioBuffer);
+        const response = new NextResponse<Buffer>(audioBuffer);
         response.headers.set('Content-Type', 'audio/mpeg');
         response.headers.set('Content-Length', audioBuffer.length.toString());
         

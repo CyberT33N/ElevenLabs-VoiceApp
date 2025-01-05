@@ -61,6 +61,7 @@ export default function VoiceBot() {
     const [error, setError] = useState<string | null>(null);
     const [showAudio, setShowAudio] = useState(false);
     const [showAnimation, setShowAnimation] = useState(false);
+    const [showShadowAnimation, setShowShadowAnimation] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
     const { theme } = useTheme();
     const { loading } = useLoading();
@@ -69,10 +70,15 @@ export default function VoiceBot() {
     useEffect(() => {
         if (!loading) {
             // Start animation after loading is complete with a small delay
-            const timer = setTimeout(() => {
+            const motionTimer = setTimeout(() => {
                 setShowAnimation(true);
+                // Start box-shadow animation after motion.div animation (0.8s) is complete
+                const shadowTimer = setTimeout(() => {
+                    setShowShadowAnimation(true);
+                }, 800);
+                return () => clearTimeout(shadowTimer);
             }, 100);
-            return () => clearTimeout(timer);
+            return () => clearTimeout(motionTimer);
         }
     }, [loading]);
 
@@ -190,14 +196,10 @@ export default function VoiceBot() {
 
     return (
         <motion.div
-            initial={{ ...glassStyle }}
-            animate={{
-                ...glassStyle,
-                opacity: showAnimation ? 1 : 0,
-                transform: showAnimation ? 'translateY(0) translateZ(0)' : 'translateY(50px) translateZ(0)'
-            }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="relative w-full max-w-md mx-auto p-6 rounded-xl ai-card-shadow"
+            initial={{ opacity: 0, y: 20 }}
+            animate={showAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className={`relative w-full max-w-md mx-auto p-6 rounded-xl base-card-shadow ${showShadowAnimation ? 'ai-card-shadow' : ''}`}
         >
             <style jsx>{`
                 @keyframes draw {

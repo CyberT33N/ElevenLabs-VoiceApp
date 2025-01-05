@@ -241,7 +241,7 @@ export default function VoiceBot() {
                     animation: draw 2s ease-in-out forwards;
                 }
             `}</style>
-            <h2 className="text-2xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 flex items-center justify-center gap-3">
+            <h2 className="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-3 dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-purple-400 dark:to-pink-600 text-white">
                 AI Voice Generator
                 <MicrophoneIcon />
             </h2>
@@ -315,7 +315,7 @@ export default function VoiceBot() {
                         >
                             <Button
                                 isIconOnly
-                                className={`bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 ${isDownloading ? 'animate-pulse shadow-ready' : ''}`}
+                                className={`bg-white dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 dark:hover:from-purple-600 dark:hover:to-pink-600 ${isDownloading ? 'animate-pulse shadow-ready' : ''}`}
                                 onClick={handleDownload}
                                 disabled={isDownloading}
                             >

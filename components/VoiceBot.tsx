@@ -197,7 +197,7 @@ export default function VoiceBot() {
                 transform: showAnimation ? 'translateY(0) translateZ(0)' : 'translateY(50px) translateZ(0)'
             }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="relative w-full max-w-md mx-auto p-6 rounded-xl"
+            className="relative w-full max-w-md mx-auto p-6 rounded-xl ai-card-shadow"
         >
             <style jsx>{`
                 @keyframes draw {

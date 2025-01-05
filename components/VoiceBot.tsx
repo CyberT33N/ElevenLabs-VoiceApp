@@ -182,7 +182,7 @@ export default function VoiceBot() {
                 opacity: 1,
                 transform: 'translateY(0) translateZ(0)'
             }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 1 }}
             className="relative w-full max-w-md mx-auto p-6 rounded-xl"
         >
             <style jsx>{`

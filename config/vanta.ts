@@ -48,14 +48,14 @@ const vantaGlobeSettings = {
     globeRotation: -.25,
 
     logo3dX: 0,
-    logo3dY: 20,
+    logo3dY: 15,
     logo3dZ: 90,
     logo3dRotationX:  Math.PI / 2, // 90 Grad Rotation um X-Achse, damit es nach unten hängt
     logo3dRotationY: 0,          // Keine Rotation um Y-Achse zu Beginn
     logo3dRotationZ: 0,          // Keine Rotation um Z-Achse
-    logo3dScaleX: 1,
-    logo3dScaleY: 1,
-    logo3dScaleZ: 1,
+    logo3dScaleX: 1.5,
+    logo3dScaleY: 1.5,
+    logo3dScaleZ: 1.5,
     logo3dSpeed: 0.0005,
 
     backgroundColor: 0x0

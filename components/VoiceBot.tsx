@@ -9,6 +9,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
+import { Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -237,14 +238,18 @@ export default function VoiceBot() {
                 </Select>
 
                 {/* 📝 Text Input Field */}
-                <Input
+                <Textarea
                     label="Enter Text"
                     placeholder="Type something to convert to speech..."
                     value={text}
-                    onChange={
-                        (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)
-                    }
+                    onChange={(e) => setText(e.target.value)}
                     className="w-full"
+                    minRows={1}
+                    maxRows={8}
+                    classNames={{
+                        input: "resize-none",
+                        base: "max-h-[300px]"
+                    }}
                 />
 
                 {/* ⚠️ Error Display */}

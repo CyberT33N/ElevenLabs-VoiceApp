@@ -52,47 +52,47 @@
 
 @keyframes shadowPulseInner {
   0%, 45%, 100% {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
                 0 0 0 4px rgba(0, 0, 0, 0.08),
                 0 0 8px rgba(0, 0, 0, 0.06);
   }
   46.5% {
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
                 0 0 0 6px rgba(0, 0, 0, 0.08),
                 0 0 10px rgba(0, 0, 0, 0.06);
   }
   48% {
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
                 0 0 0 8px rgba(0, 0, 0, 0.08),
                 0 0 12px rgba(0, 0, 0, 0.06);
   }
   49.5% {
-    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.12),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
                 0 0 0 10px rgba(0, 0, 0, 0.08),
                 0 0 15px rgba(0, 0, 0, 0.06);
   }
   51%, 52% {
-    box-shadow: 0 0 0 18px rgba(0, 0, 0, 0.02),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02),
                 0 0 0 36px rgba(0, 0, 0, 0.015),
                 0 0 52px rgba(0, 0, 0, 0.01);
   }
   54% {
-    box-shadow: 0 0 0 12px rgba(0, 0, 0, 0.015),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.015),
                 0 0 0 24px rgba(0, 0, 0, 0.01),
                 0 0 40px rgba(0, 0, 0, 0.008);
   }
   56% {
-    box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.01),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01),
                 0 0 0 16px rgba(0, 0, 0, 0.008),
                 0 0 30px rgba(0, 0, 0, 0.005);
   }
   58% {
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.008),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.008),
                 0 0 0 8px rgba(0, 0, 0, 0.005),
                 0 0 20px rgba(0, 0, 0, 0.003);
   }
   60% {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.005),
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.005),
                 0 0 0 4px rgba(0, 0, 0, 0.003),
                 0 0 10px rgba(0, 0, 0, 0.002);
   }
@@ -100,47 +100,47 @@
 
 @keyframes shadowPulseInnerDark {
   0%, 45%, 100% {
-    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
                 0 0 0 4px rgba(147, 51, 234, 0.3),
                 0 0 8px rgba(236, 72, 153, 0.2);
   }
   46.5% {
-    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.4),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
                 0 0 0 6px rgba(147, 51, 234, 0.3),
                 0 0 10px rgba(236, 72, 153, 0.2);
   }
   48% {
-    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.4),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
                 0 0 0 8px rgba(147, 51, 234, 0.3),
                 0 0 12px rgba(236, 72, 153, 0.2);
   }
   49.5% {
-    box-shadow: 0 0 0 5px rgba(236, 72, 153, 0.4),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
                 0 0 0 10px rgba(147, 51, 234, 0.3),
                 0 0 15px rgba(236, 72, 153, 0.2);
   }
   51%, 52% {
-    box-shadow: 0 0 0 18px rgba(236, 72, 153, 0.08),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.08),
                 0 0 0 36px rgba(147, 51, 234, 0.06),
                 0 0 52px rgba(236, 72, 153, 0.04);
   }
   54% {
-    box-shadow: 0 0 0 12px rgba(236, 72, 153, 0.06),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.06),
                 0 0 0 24px rgba(147, 51, 234, 0.04),
                 0 0 40px rgba(236, 72, 153, 0.03);
   }
   56% {
-    box-shadow: 0 0 0 8px rgba(236, 72, 153, 0.04),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.04),
                 0 0 0 16px rgba(147, 51, 234, 0.03),
                 0 0 30px rgba(236, 72, 153, 0.02);
   }
   58% {
-    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.03),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.03),
                 0 0 0 8px rgba(147, 51, 234, 0.02),
                 0 0 20px rgba(236, 72, 153, 0.01);
   }
   60% {
-    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.02),
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.02),
                 0 0 0 4px rgba(147, 51, 234, 0.01),
                 0 0 10px rgba(236, 72, 153, 0.005);
   }
@@ -166,7 +166,7 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px) saturate(110%);
   -webkit-backdrop-filter: blur(8px) saturate(110%);
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12),
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
               0 0 0 4px rgba(0, 0, 0, 0.08),
               0 0 8px rgba(0, 0, 0, 0.06);
   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -177,7 +177,7 @@
   background: rgba(236, 72, 153, 0.06);
   backdrop-filter: blur(8px) saturate(120%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
-  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4),
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
               0 0 0 4px rgba(147, 51, 234, 0.3),
               0 0 8px rgba(236, 72, 153, 0.2);
 }

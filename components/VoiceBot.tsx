@@ -315,9 +315,7 @@ export default function VoiceBot() {
                         >
                             <Button
                                 isIconOnly
-                                color="secondary"
-                                variant="shadow"
-                                className={`${isDownloading ? 'animate-pulse shadow-ready' : ''}`}
+                                className={`bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 ${isDownloading ? 'animate-pulse shadow-ready' : ''}`}
                                 onClick={handleDownload}
                                 disabled={isDownloading}
                             >

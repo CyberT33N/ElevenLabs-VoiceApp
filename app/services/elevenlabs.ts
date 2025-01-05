@@ -44,6 +44,18 @@ export interface TextToSpeechRequest {
 }
 
 /**
+ * 🔑 API Headers Interface
+ * Represents the structure of API request headers
+ * @interface ElevenLabsHeaders
+ */
+export interface ElevenLabsHeaders {
+    Accept: 'application/json';
+    'xi-api-key': string;
+    'Content-Type': 'application/json';
+    [key: string]: string;
+}
+
+/**
  * 🔧 ElevenLabs API Client
  * Provides methods to interact with the ElevenLabs Text-to-Speech API
  * @class ElevenLabsAPI
@@ -63,9 +75,9 @@ export class ElevenLabsAPI {
     /**
      * 🔑 Get default headers for API requests
      * @private
-     * @returns {Object} Headers object with API key and content type
+     * @returns {ElevenLabsHeaders} Headers object with API key and content type
      */
-    private get headers() {
+    private get headers(): ElevenLabsHeaders {
         return {
             'Accept': 'application/json',
             'xi-api-key': this.apiKey,

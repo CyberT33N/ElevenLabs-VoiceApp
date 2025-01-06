@@ -20,6 +20,7 @@
  */
 
 import { Spinner } from '@nextui-org/react'
+import '@/styles/components/loader.css'
 
 /**
  * @component Loader

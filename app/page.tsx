@@ -31,7 +31,7 @@
 import VoiceBot from '@/components/VoiceBot'
 import { useState, useEffect } from 'react';
 import anime from 'animejs';
-import './animation.css'
+import '@/styles/components/animation.css'
 
 /**
  * 🏠 Home Page Component

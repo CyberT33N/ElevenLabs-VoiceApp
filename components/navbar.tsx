@@ -32,11 +32,6 @@ import { siteConfig } from '@/config/site'
 
 // ==== COMPONENTS ====
 import { ThemeSwitch } from '@/components/theme-switch'
-import {
-    // GithubIcon,
-    SearchIcon
-} from '@/components/icons'
-
 import { Logo } from '@/components/icons'
 
 export const Navbar = () => {
@@ -54,9 +49,6 @@ export const Navbar = () => {
             }
             labelPlacement="outside"
             placeholder="Search..."
-            startContent={
-                <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-            }
             type="search"
         />
     )

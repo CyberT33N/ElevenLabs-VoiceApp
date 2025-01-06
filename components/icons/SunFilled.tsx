@@ -1,12 +1,33 @@
+/**
+ * @fileoverview ☀️ Sun Filled Icon Component
+ * @module icons/SunFilled
+ * @requires react
+ * 
+ * @copyright t33n Software 2025
+ */
+
 import * as React from 'react'
 import { IconSvgProps } from '@/types'
 
-const SunFilledIcon = ({
+/**
+ * ☀️ Sun Filled Icon Component
+ * 
+ * @component
+ * @description A filled sun icon used for light mode toggle and day-time indicators
+ * 
+ * @param {IconSvgProps} props - Icon properties
+ * @param {number} [props.size=24] - Icon size in pixels
+ * @param {number} [props.width] - Custom width (overrides size)
+ * @param {number} [props.height] - Custom height (overrides size)
+ * 
+ * @returns {JSX.Element} Sun filled icon SVG
+ */
+const SunFilled: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,
     ...props
-}: IconSvgProps) => (
+}) => (
     <svg
         aria-hidden="true"
         focusable="false"
@@ -23,4 +44,4 @@ const SunFilledIcon = ({
     </svg>
 )
 
-export default SunFilledIcon
+export default SunFilled

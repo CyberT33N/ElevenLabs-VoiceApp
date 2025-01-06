@@ -1,7 +1,28 @@
+/**
+ * @fileoverview 🌙 Moon Filled Icon Component
+ * @module icons/MoonFilled
+ * @requires react
+ * 
+ * @copyright t33n Software 2025
+ */
+
 import * as React from 'react'
 import { IconSvgProps } from '@/types'
 
-const MoonFilledIcon = ({
+/**
+ * Moon Filled Icon Component
+ * 
+ * @component
+ * @description A filled moon icon used for dark mode toggle and night-time indicators
+ * 
+ * @param {IconSvgProps} props - Icon properties
+ * @param {number} [props.size=24] - Icon size in pixels
+ * @param {number} [props.width] - Custom width (overrides size)
+ * @param {number} [props.height] - Custom height (overrides size)
+ * 
+ * @returns {JSX.Element} Moon filled icon SVG
+ */
+const MoonFilledIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
     height,

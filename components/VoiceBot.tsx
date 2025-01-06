@@ -13,7 +13,7 @@ import { Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { MicrophoneIcon, DownloadIcon } from './icons';
+import { Microphone, Download } from './icons';
 
 import axiosRequestWrapper from '@/utils/axiosRequestWrapper';
 import { BaseError } from 'error-manager-helper';
@@ -243,7 +243,7 @@ export default function VoiceBot() {
             `}</style>
             <h2 className="text-xl sm:text-2xl font-bold mb-6 text-center flex flex-col sm:flex-row items-center justify-center sm:gap-3 text-white dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-purple-400 dark:to-pink-600">
                 <span className="mb-2 sm:mb-0">AI Voice Generator</span>
-                <MicrophoneIcon className="w-6 h-6" />
+                <Microphone className="w-6 h-6" />
             </h2>
 
             <div className="space-y-4">
@@ -319,7 +319,7 @@ export default function VoiceBot() {
                                 onClick={handleDownload}
                                 disabled={isDownloading}
                             >
-                                <DownloadIcon />
+                                <Download />
                             </Button>
                         </motion.div>
                     </div>

@@ -21,15 +21,15 @@
  * @author t33n Software
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server'
 
 import {
     ElevenLabsAPI,
     type Voice, type TextToSpeechRequest
-} from '@/app/services/elevenlabs';
+} from '@/app/services/elevenlabs'
 
 // 🚀 Initialize the ElevenLabs API client
-const elevenlabs = new ElevenLabsAPI();
+const elevenlabs = new ElevenLabsAPI()
 
 /**
  * @typedef {Object} VoicesResponse
@@ -57,13 +57,13 @@ type ErrorResponse = {
  */
 export async function GET(): Promise<NextResponse<VoicesResponse | ErrorResponse>> {
     try {
-        const voices = await elevenlabs.getVoices();
-        return NextResponse.json({ voices });
+        const voices = await elevenlabs.getVoices()
+        return NextResponse.json({ voices })
     } catch (error) {
-        console.error('Error fetching voices:', error);
+        console.error('Error fetching voices:', error)
         return NextResponse.json({ 
             error: error instanceof Error ? error.message : 'Failed to fetch voices' 
-        }, { status: 500 });
+        }, { status: 500 })
     }
 }
 
@@ -90,15 +90,15 @@ export async function POST(
 ): Promise<NextResponse<Buffer | ErrorResponse>> {
     try {
         // 📝 Parse the request body
-        const body: TextToSpeechRequest = await request.json();
-        const { text, voice_id, model_id, voice_settings } = body;
+        const body: TextToSpeechRequest = await request.json()
+        const { text, voice_id, model_id, voice_settings } = body
 
         // ✅ Validate required fields
         if (!text || !voice_id) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }
-            );
+            )
         }
 
         // 🎵 Generate audio from text
@@ -107,19 +107,19 @@ export async function POST(
             voice_id,
             model_id,
             voice_settings
-        });
+        })
 
         // 📦 Create response with proper headers for audio data
-        const response = new NextResponse<Buffer>(audioBuffer);
-        response.headers.set('Content-Type', 'audio/mpeg');
-        response.headers.set('Content-Length', audioBuffer.length.toString());
+        const response = new NextResponse<Buffer>(audioBuffer)
+        response.headers.set('Content-Type', 'audio/mpeg')
+        response.headers.set('Content-Length', audioBuffer.length.toString())
         
-        return response;
+        return response
     } catch (error) {
-        console.error('Speech generation error:', error);
+        console.error('Speech generation error:', error)
         return NextResponse.json(
             { error: error instanceof Error ? error.message : 'Failed to generate speech' },
             { status: 500 }
-        );
+        )
     }
 }

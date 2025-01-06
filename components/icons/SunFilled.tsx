@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * @fileoverview ☀️ Sun Filled Icon Component
  * @module icons/SunFilled

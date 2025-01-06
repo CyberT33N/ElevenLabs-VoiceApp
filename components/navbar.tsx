@@ -37,9 +37,7 @@ import {
     NavbarMenuItem
 } from '@nextui-org/navbar'
 
-import { Kbd } from '@nextui-org/kbd'
 import { Link } from '@nextui-org/link'
-import { Input } from '@nextui-org/input'
 
 // ⚛️ React Core
 import React from 'react'
@@ -68,8 +66,8 @@ export const Navbar = () => {
             style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}  // 🎨 Transparent background
             className="w-full max-w-full px-0"
             classNames={{
-                wrapper: "px-0 max-w-full",
-                content: "px-6"
+                wrapper: 'px-0 max-w-full',
+                content: 'px-6'
             }}
             position="sticky"  // 📌 Sticky positioning at the top
             isBlurred={false}

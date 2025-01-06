@@ -29,8 +29,8 @@
 
 // ==== DEPENDENCIES ====
 import VoiceBot from '@/components/VoiceBot'
-import { useState, useEffect } from 'react';
-import anime from 'animejs';
+import { useState, useEffect } from 'react'
+import anime from 'animejs'
 import '@/styles/components/animation.css'
 
 /**
@@ -47,7 +47,7 @@ import '@/styles/components/animation.css'
  */
 export default function Home() {
     // 🔄 Loading state management
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false)
 
     /**
      * 🎭 Animation Setup Effect
@@ -61,63 +61,65 @@ export default function Home() {
          */
         const checkLoading = () => {
             // Check if app has finished loading
-            const loadingState = document.body.classList.contains('app-loaded');
+            const loadingState = document.body.classList.contains('app-loaded')
 
             if (loadingState) {
                 // ✅ App has loaded
-                setIsLoaded(true);
+                setIsLoaded(true)
 
                 // 🎬 Initialize animation sequence
                 setTimeout(() => {
-                    const textWrapper = document.querySelector('.ml2');
+                    const textWrapper = document.querySelector('.ml2')
 
                     if (textWrapper) {
                         // 📝 Text processing: Split into words and letters
-                        const words = textWrapper.textContent!.split(' ');
+                        const words = textWrapper.textContent!.split(' ')
                         
                         // 🔤 Create HTML structure for animation
                         textWrapper.innerHTML = words.map(word => 
                             `<span class='word'>${word.split('').map(char => 
                                 `<span class='letter'>${char}</span>`
                             ).join('')}</span>`
-                        ).join(' ');
+                        ).join(' ')
                         
                         // 👁️ Make text visible
-                        textWrapper.classList.add('visible');
+                        textWrapper.classList.add('visible')
                         
                         // ✨ Animate letters
                         anime.timeline({loop: false})
-                        .add({
-                            targets: '.ml2 .letter',
-                            scale: [4,1],
-                            opacity: [0,1],
-                            translateZ: 0,
-                            easing: "easeOutExpo",
-                            duration: 950,
-                            delay: (el, i) => 70*i
-                        });
+                            .add({
+                                targets: '.ml2 .letter',
+                                scale: [4,1],
+                                opacity: [0,1],
+                                translateZ: 0,
+                                easing: 'easeOutExpo',
+                                duration: 950,
+                                delay: (el, i) => 70*i
+                            })
                     }
-                }, 100); // Reduced delay for responsiveness
+                }, 100) // Reduced delay for responsiveness
             } else {
                 // 🔄 Check again if not loaded
-                setTimeout(checkLoading, 100);
+                setTimeout(checkLoading, 100)
             }
-        };
+        }
         
         // 🚀 Start initial loading check
-        checkLoading();
-    }, []);
+        checkLoading()
+    }, [])
 
     return (
         // 📱 Main container with full viewport height
         <div className="min-h-screen w-full relative">
             {/* 📄 Content wrapper with centered layout */}
-            <main className="container mx-auto max-w-7xl pt-2 px-6 flex-grow flex items-center justify-center min-h-screen">
+            <main className="container mx-auto max-w-7xl pt-2 px-6 flex-grow 
+            flex items-center justify-center min-h-screen">
                 {/* 📦 Content container with max width */}
                 <div className="w-full max-w-4xl -mt-32">
                     {/* 🎯 Animated title container */}
                     <div className="flex items-center justify-center overflow-visible h-72 md:h-64">
-                        <h1 className="ml2 text-6xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                        <h1 className="ml2 text-6xl font-bold text-center 
+                        mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                             ElevenLabs Voice App
                         </h1>
                     </div>

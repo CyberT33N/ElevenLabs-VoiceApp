@@ -8,7 +8,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
 import { Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from '@nextui-org/react';
 import { motion } from 'framer-motion';
@@ -23,10 +22,12 @@ import { useLoading } from '@/app/loadingContext';
 /**
  * 📋 Interface for Voice data structure
  * @interface Voice
- * @property {string} voice_id - Unique identifier for the voice
- * @property {string} name - Display name of the voice
- * @property {string} preview_url - URL to preview the voice
- * @property {string} category - Category the voice belongs to
+ * @description Defines the structure for voice data received from the ElevenLabs API
+ * 
+ * @property {string} voice_id - Unique identifier for the voice model
+ * @property {string} name - Human-readable name of the voice
+ * @property {string} preview_url - URL to preview the voice sample
+ * @property {string} category - Classification category of the voice (e.g., "premade", "cloned")
  */
 interface Voice {
     voice_id: string;
@@ -38,14 +39,15 @@ interface Voice {
 /**
  * 🤖 VoiceBot Component
  * @component
- * @description A component that enables text-to-speech conversion using ElevenLabs API
+ * @description A sophisticated text-to-speech component utilizing ElevenLabs API
  * 
- * Features:
- * - 🎯 Voice selection from available options
- * - ✍️ Text input for conversion
- * - 🔊 Audio playback of generated speech
- * - 🌓 Theme-aware styling (dark/light mode)
- * - ✨ Smooth animations and transitions
+ * Key Features:
+ * - 🎯 Dynamic voice selection from ElevenLabs' voice models
+ * - ✍️ Text input with multi-line support
+ * - 🔊 Built-in audio player with download capability
+ * - 🌓 Theme-aware styling (dark/light mode compatibility)
+ * - ✨ Smooth animations and glass-morphism effects
+ * - 🔄 Loading states and error handling
  * 
  * @example
  * ```tsx
@@ -54,25 +56,25 @@ interface Voice {
  */
 export default function VoiceBot() {
     // 📊 State Management
-    const [voices, setVoices] = useState<Voice[]>([]);
-    const [text, setText] = useState('');
-    const [selectedVoice, setSelectedVoice] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [showAudio, setShowAudio] = useState(false);
-    const [showAnimation, setShowAnimation] = useState(false);
-    const [showShadowAnimation, setShowShadowAnimation] = useState(false);
-    const [showPulsingAnimation, setShowPulsingAnimation] = useState(false);
-    const [isDownloading, setIsDownloading] = useState(false);
-    const [audioData, setAudioData] = useState<string | null>(null);
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const { theme } = useTheme();
-    const { loading } = useLoading();
+    const [voices, setVoices] = useState<Voice[]>([]); // Available voice models
+    const [text, setText] = useState(''); // Input text for conversion
+    const [selectedVoice, setSelectedVoice] = useState(''); // Selected voice ID
+    const [isLoading, setIsLoading] = useState(false); // Loading state for API calls
+    const [error, setError] = useState<string | null>(null); // Error message state
+    const [showAudio, setShowAudio] = useState(false); // Audio player visibility
+    const [showAnimation, setShowAnimation] = useState(false); // Component animation state
+    const [showShadowAnimation, setShowShadowAnimation] = useState(false); // Shadow effect state
+    const [showPulsingAnimation, setShowPulsingAnimation] = useState(false); // Pulse animation state
+    const [isDownloading, setIsDownloading] = useState(false); // Download state
+    const [audioData, setAudioData] = useState<string | null>(null); // Generated audio data
+    const audioRef = useRef<HTMLAudioElement>(null); // Reference to audio element
+    const { theme } = useTheme(); // Current theme context
+    const { loading } = useLoading(); // Global loading state
 
     // 🔄 Lifecycle Management
     useEffect(() => {
         if (!loading) {
-            // Start animation after loading is complete with a small delay
+            // ⏱️ Delayed animation start for smooth entry
             const motionTimer = setTimeout(() => {
                 setShowAnimation(true);
             }, 100);
@@ -81,14 +83,15 @@ export default function VoiceBot() {
     }, [loading]);
 
     useEffect(() => {
-        fetchVoices();
+        fetchVoices(); // 🎤 Initialize available voices on mount
     }, []);
 
     /**
-     * 🎤 Fetches available voices from the API
+     * 🎤 Fetches available voices from the ElevenLabs API
      * @async
      * @function fetchVoices
      * @throws {BaseError} When API request fails
+     * @throws {HttpClientError} When HTTP request fails
      */
     const fetchVoices = async () => {
         try {
@@ -113,17 +116,18 @@ export default function VoiceBot() {
             }
     
             setError(`Error fetching voices: ${errorMessage}`);
-            console.error('Error fetching voices:', error);
+            console.error('🚨 Error fetching voices:', error);
         }
     };
 
     /**
-     * 📝 Handles form submission to generate speech
+     * 🔊 Handles form submission to generate speech from text
      * @async
      * @function handleSubmit
-     * @throws {Error} When API request or audio playback fails
+     * @throws {Error} When API request fails or audio processing fails
      */
     const handleSubmit = async () => {
+        // ✅ Input validation
         if (!text || !selectedVoice) {
             setError('Please enter text and select a voice');
             return;
@@ -131,10 +135,10 @@ export default function VoiceBot() {
     
         setError(null);
         setIsLoading(true);
-        setShowAudio(false); // Reset audio state
+        setShowAudio(false); // 🔄 Reset audio state
         
         try {
-            console.log('Generating speech...'); // Debug log
+            console.log('🎯 Generating speech...'); // Debug log
             const response = await axiosRequestWrapper({
                 method: 'POST',
                 url: '/api/voice',
@@ -144,26 +148,28 @@ export default function VoiceBot() {
                 errorMessage: 'Failed to generate speech',
             });
     
+            // 🔍 Validate response type
             const contentType = response.headers['content-type'];
-            console.log('Response content type:', contentType); // Debug log
+            console.log('📝 Response content type:', contentType);
     
             if (!contentType?.includes('audio/mpeg')) {
                 throw new Error(`Invalid response type: ${contentType}`);
             }
     
+            // 🎵 Process audio data
             const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
-            console.log('Audio blob size:', audioBlob.size); // Debug log
+            console.log('📦 Audio blob size:', audioBlob.size);
             
             if (audioBlob.size === 0) {
                 throw new Error('Received empty audio response');
             }
     
             const audioUrl = URL.createObjectURL(audioBlob);
-            console.log('Audio URL created:', audioUrl); // Debug log
+            console.log('🔗 Audio URL created:', audioUrl);
             
             setAudioData(audioUrl);
             setShowAudio(true);
-            console.log('Audio state updated'); // Debug log
+            console.log('✨ Audio state updated');
 
         } catch (error) {
             let errorMessage = 'Unknown error';
@@ -175,17 +181,24 @@ export default function VoiceBot() {
             }
     
             setError(`Error: ${errorMessage}`);
-            console.error('Error generating speech:', error);
+            console.error('🚨 Error generating speech:', error);
         } finally {
             setIsLoading(false);
         }
     };
 
+    /**
+     * 💾 Handles downloading of generated audio file
+     * @async
+     * @function handleDownload
+     */
     const handleDownload = async () => {
         if (!audioData) return;
         
         setIsDownloading(true);
+
         try {
+            // 📥 Process download
             const response = await fetch(audioData);
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
@@ -194,21 +207,15 @@ export default function VoiceBot() {
             a.download = `voice-message-${Date.now()}.mp3`;
             document.body.appendChild(a);
             a.click();
+            
+            // 🧹 Cleanup
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
         } catch (error) {
-            console.error('Download failed:', error);
+            console.error('🚨 Download failed:', error);
         }
-        setIsDownloading(false);
-    };
 
-    const glassStyle = {
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.18)',
-        background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%)',
-        opacity: 0,
-        transform: 'translateY(50px) translateZ(0)'
+        setIsDownloading(false);
     };
 
     return (
@@ -218,29 +225,18 @@ export default function VoiceBot() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             onAnimationComplete={() => {
-                // First add base shadows
-                setShowShadowAnimation(true);
-                // Then after a short delay, start pulsing
+                // 🎭 Animation sequence
+                setShowShadowAnimation(true); // Base shadows
                 setTimeout(() => {
-                    setShowPulsingAnimation(true);
+                    setShowPulsingAnimation(true); // Pulsing effect
                 }, 300);
             }}
             className={`relative w-full max-w-md mx-auto p-6 rounded-xl base-card-shadow ${
                 showShadowAnimation ? 'shadow-ready' : ''
             } ${showPulsingAnimation ? 'ai-card-shadow' : ''}`}
         >
-            <style jsx>{`
-                @keyframes draw {
-                    to {
-                        stroke-dashoffset: 0;
-                    }
-                }
-                .draw-animation {
-                    stroke-dasharray: 100;
-                    stroke-dashoffset: 100;
-                    animation: draw 2s ease-in-out forwards;
-                }
-            `}</style>
+
+            {/* 📝 Component Title */}
             <h2 className="text-xl sm:text-2xl font-bold mb-6 text-center flex flex-col sm:flex-row items-center justify-center sm:gap-3 text-white dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-purple-400 dark:to-pink-600">
                 <span className="mb-2 sm:mb-0">AI Voice Generator</span>
                 <Microphone className="w-6 h-6" />
@@ -253,7 +249,7 @@ export default function VoiceBot() {
                     placeholder="Choose a voice"
                     value={selectedVoice}
                     onChange={
-                        (e: React.ChangeEvent<HTMLInputElement>) => setSelectedVoice(e.target.value)
+                        (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVoice(e.target.value)
                     }
                     className="w-full"
                     classNames={{
@@ -267,7 +263,7 @@ export default function VoiceBot() {
                     ))}
                 </Select>
 
-                {/* 📝 Text Input Field */}
+                {/* 📝 Text Input Area */}
                 <Textarea
                     label="Enter Text"
                     placeholder="Type something to convert to speech..."
@@ -289,7 +285,7 @@ export default function VoiceBot() {
                     </div>
                 )}
 
-                {/* 🔄 Submit Button */}
+                {/* 🔄 Generate Speech Button */}
                 <Button
                     color="primary"
                     onClick={handleSubmit}
@@ -299,7 +295,7 @@ export default function VoiceBot() {
                     {isLoading ? 'Generating...' : 'Generate Speech'}
                 </Button>
 
-                {/* 🔊 Audio Player */}
+                {/* 🔊 Audio Player with Download */}
                 {showAudio && audioData && (
                     <div className="flex items-center gap-4 mt-4">
                         <audio

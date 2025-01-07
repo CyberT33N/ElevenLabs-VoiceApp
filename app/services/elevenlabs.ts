@@ -19,7 +19,7 @@
  * @module ElevenLabsAPI
  */
 
-import axiosRequestWrapper from '@/utils/axiosRequestWrapper';
+import axiosRequestWrapper from '@/utils/axiosRequestWrapper'
 
 /**
  * 🎤 Voice Interface
@@ -76,15 +76,15 @@ export interface ElevenLabsHeaders {
  * @class ElevenLabsAPI
  */
 export class ElevenLabsAPI {
-    private readonly apiKey: string;
-    private readonly baseURL: string;
+    private readonly apiKey: string
+    private readonly baseURL: string
 
     /**
      * Creates an instance of ElevenLabsAPI
      */
     constructor() {
-        this.apiKey = process.env.ELEVENLABS_API_KEY;
-        this.baseURL = process.env.ELEVENLABS_API_URL;
+        this.apiKey = process.env.ELEVENLABS_API_KEY
+        this.baseURL = process.env.ELEVENLABS_API_URL
     }
 
     /**
@@ -97,7 +97,7 @@ export class ElevenLabsAPI {
             'Accept': 'application/json',
             'xi-api-key': this.apiKey,
             'Content-Type': 'application/json'
-        };
+        }
     }
 
     /**
@@ -114,9 +114,9 @@ export class ElevenLabsAPI {
             method: 'GET',
             headers: this.headers,
             errorMessage: 'Failed to fetch voices from ElevenLabs API'
-        });
+        })
 
-        return response.data.voices;
+        return response.data.voices
     }
 
     /**
@@ -128,7 +128,7 @@ export class ElevenLabsAPI {
      * @throws {HttpClientError} If text-to-speech conversion fails
      */
     async textToSpeech(request: TextToSpeechRequest): Promise<Buffer> {
-        const url = `${this.baseURL}/text-to-speech/${request.voice_id}`;
+        const url = `${this.baseURL}/text-to-speech/${request.voice_id}`
         
         // Make POST request to text-to-speech endpoint
         const response = await axiosRequestWrapper({
@@ -148,8 +148,8 @@ export class ElevenLabsAPI {
             },
             responseType: 'arraybuffer',
             errorMessage: 'Failed to generate speech from ElevenLabs API'
-        });
+        })
 
-        return Buffer.from(response.data);
+        return Buffer.from(response.data)
     }
 }

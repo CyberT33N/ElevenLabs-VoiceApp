@@ -1,0 +1,15 @@
+/*
+ * 🔄 ElevenLabs VoiceApp Loader Styles
+ * Primary component: Loading Spinner Component
+ * File: /styles/components/loader.css
+ * ═══════════════════════════════════════════
+ */
+
+/* 
+ * 📍 Loader Container
+ * Centers the loading spinner both vertically and horizontally
+ * Uses flexbox for perfect centering
+ */
+.loader-container {
+    @apply flex justify-center items-center h-screen;
+}

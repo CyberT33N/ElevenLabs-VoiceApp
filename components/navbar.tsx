@@ -1,10 +1,32 @@
+/*
+███████████████████████████████████████████████████████████████████████████████
+██******************** PRESENTED BY t33n Software ***************************██
+██                                                                           ██
+██                  ████████╗██████╗ ██████╗ ███╗   ██╗                      ██
+██                  ╚══██╔══╝╚════██╗╚════██╗████╗  ██║                      ██
+██                     ██║    █████╔╝ █████╔╝██╔██╗ ██║                      ██
+██                     ██║    ╚═══██╗ ╚═══██╗██║╚██╗██║                      ██
+██                     ██║   ██████╔╝██████╔╝██║ ╚████║                      ██
+██                     ╚═╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝                      ██
+██                                                                           ██
+███████████████████████████████████████████████████████████████████████████████
+███████████████████████████████████████████████████████████████████████████████
+*/
+
 'use client'
 
-// ==== DEPENDENCIES ====
-import clsx from 'clsx'
+/**
+ * @fileoverview Navigation Bar Component for the ElevenLabs Voice Application
+ * @module components/navbar
+ * @requires @nextui-org/navbar
+ * @requires @nextui-org/theme
+ * @requires next/link
+ */
+
+// 🔄 Dependencies
 import _ from 'lodash'
 
-// ==== NEXT UI ====
+// 🎨 NextUI Components
 import {
     Navbar as NextUINavbar,
     NavbarContent,
@@ -15,118 +37,66 @@ import {
     NavbarMenuItem
 } from '@nextui-org/navbar'
 
-import { Kbd } from '@nextui-org/kbd'
 import { Link } from '@nextui-org/link'
-import { Input } from '@nextui-org/input'
-import { link as linkStyles } from '@nextui-org/theme'
 
-// ==== REACT ====
+// ⚛️ React Core
 import React from 'react'
-// import { useState, useEffect } from 'react'
 
-// ==== NEXT.js ====
+// 🔗 Next.js Routing
 import NextLink from 'next/link'
 
-// ==== CUSTOM ====
+// ⚙️ Custom Configuration
 import { siteConfig } from '@/config/site'
 
-// ==== COMPONENTS ====
+// 🧩 Custom Components
 import { ThemeSwitch } from '@/components/theme-switch'
-import {
-    // GithubIcon,
-    SearchIcon
-} from '@/components/icons'
-
 import { Logo } from '@/components/icons'
 
+/**
+ * @component Navbar
+ * @description Main navigation component that provides the top-level navigation structure
+ * for the application. Features a responsive design with logo, theme switcher, and optional
+ * hamburger menu for mobile views.
+ * 
+ * @returns {JSX.Element} A responsive navigation bar component
+ */
 export const Navbar = () => {
-    const searchInput = (
-        <Input
-            aria-label="Search"
-            classNames={{
-                inputWrapper: 'bg-default-100',
-                input: 'text-sm'
-            }}
-            endContent={
-                <Kbd className="hidden lg:inline-block" keys={['command']}>
-					K
-                </Kbd>
-            }
-            labelPlacement="outside"
-            placeholder="Search..."
-            startContent={
-                <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-            }
-            type="search"
-        />
-    )
-
-
     return (
         <NextUINavbar 
-            maxWidth="xl" 
-            position="sticky"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}  // 🎨 Transparent background
+            className="w-full max-w-full px-0"
+            classNames={{
+                wrapper: 'px-0 max-w-full',
+                content: 'px-6'
+            }}
+            position="sticky"  // 📌 Sticky positioning at the top
             isBlurred={false}
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}
         >
+            {/* 📱 Primary Navigation Section */}
             <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-
-                {/* ==== LOGO ==== */}
+                {/* 🎯 Brand Logo and Title */}
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink className="flex justify-start items-center gap-1" href="/">
                         <Logo />
-                        <p className="font-bold text-inherit">next-template-base</p>
+                        <p className="font-bold text-inherit">CyberT33N</p>
                     </NextLink>
                 </NavbarBrand>
-
-                <ul className="hidden lg:flex gap-4 justify-start ml-2">
-                    {siteConfig.navItems.map(item => (
-                        <NavbarItem key={item.href}>
-                            <NextLink
-                                className={clsx(
-                                    linkStyles({ color: 'foreground' }),
-                                    'data-[active=true]:text-primary data-[active=true]:font-medium'
-                                )}
-                                color="foreground"
-                                href={item.href}
-                            >
-                                {item.label}
-                            </NextLink>
-                        </NavbarItem>
-                    ))}
-                </ul>
             </NavbarContent>
 
-            <NavbarContent
-                className="hidden sm:flex basis-1/5 sm:basis-full"
-                justify="end"
-            >
-                <NavbarItem className="hidden sm:flex gap-2">
-                    {/* <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
-						<TwitterIcon className="text-default-500" />
-					</Link>
-					<Link isExternal href={siteConfig.links.discord} aria-label="Discord">
-						<DiscordIcon className="text-default-500" />
-					</Link>
-					<Link isExternal href={siteConfig.links.github} aria-label="Github">
-						<GithubIcon className="text-default-500" />
-					</Link> */}
+            {/* 🎨 Theme Switch Section */}
+            <NavbarContent className="flex basis-1 justify-end" justify="end">
+                <NavbarItem>
                     <ThemeSwitch />
                 </NavbarItem>
-
-                <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
             </NavbarContent>
 
-            <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-                {/* <Link isExternal href={siteConfig.links.github} aria-label="Github">
-                    <GithubIcon className="text-default-500" />
-                </Link> */}
-                <ThemeSwitch />
+            {/* 📱 Mobile Menu Toggle (Hidden) */}
+            <NavbarContent className="hidden basis-1 pl-4" justify="end">
                 <NavbarMenuToggle />
             </NavbarContent>
 
+            {/* 📱 Mobile Navigation Menu */}
             <NavbarMenu>
-                {searchInput}
                 <div className="mx-4 mt-2 flex flex-col gap-2">
                     {siteConfig.navMenuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item}-${index}`}>

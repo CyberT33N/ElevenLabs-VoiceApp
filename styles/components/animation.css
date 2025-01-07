@@ -1,0 +1,318 @@
+/*
+ * 🎨 ElevenLabs VoiceApp Animation Styles
+ * Primary component: Text Animation and Card Effects
+ * File: /app/animation.css
+ * ═══════════════════════════════════════════
+ */
+
+/* 
+ * 📝 Text Animation Container (.ml2)
+ * Used for animated text displays with letter-by-letter reveal
+ * Parent container for animated text sequences
+ */
+ .ml2 {
+  font-weight: 900;
+  font-size: 3.5em;
+  min-height: 3em;
+  margin-top: 0;
+  visibility: hidden;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  line-height: 1.2;
+  align-items: center;
+}
+
+/* Visibility toggle for animation sequence */
+.ml2.visible {
+  visibility: visible;
+}
+
+/* 
+ * 📜 Individual Letter Styling
+ * Controls the appearance and animation of each character
+ */
+.ml2 .letter {
+  display: inline-block;
+  line-height: 1em;
+  opacity: 0;
+  transform: scale(4);
+}
+
+/* 
+ * 💭 Word Container
+ * Manages spacing and alignment for word groups
+ */
+.ml2 .word {
+  display: inline-flex;
+  margin-right: 0.3em;
+  align-items: center;
+}
+
+.ml2 .word:last-child {
+  margin-right: 0;
+}
+
+/* 
+ * 🎭 Transparent Text Effect
+ * Creates gradient text effect for light mode
+ */
+.text-transparent,
+.text-transparent .letter,
+.text-transparent .word {
+  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 
+ * 🌙 Dark Mode Text Effect
+ * Adjusts gradient for dark theme
+ */
+:is(.dark) .text-transparent,
+:is(.dark) .text-transparent .letter,
+:is(.dark) .text-transparent .word {
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 
+ * ✨ Inner Shadow Pulse Animation
+ * Creates pulsing shadow effect for light mode
+ */
+@keyframes shadowPulseInner {
+  0%, 45%, 100% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+                0 0 0 4px rgba(0, 0, 0, 0.08),
+                0 0 8px rgba(0, 0, 0, 0.06);
+  }
+  /* Expansion phase */
+  46.5% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+                0 0 0 6px rgba(0, 0, 0, 0.08),
+                0 0 10px rgba(0, 0, 0, 0.06);
+  }
+  48% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+                0 0 0 8px rgba(0, 0, 0, 0.08),
+                0 0 12px rgba(0, 0, 0, 0.06);
+  }
+  49.5% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+                0 0 0 10px rgba(0, 0, 0, 0.08),
+                0 0 15px rgba(0, 0, 0, 0.06);
+  }
+  /* Peak expansion */
+  51%, 52% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02),
+                0 0 0 36px rgba(0, 0, 0, 0.015),
+                0 0 52px rgba(0, 0, 0, 0.01);
+  }
+  /* Contraction phase */
+  54% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.015),
+                0 0 0 24px rgba(0, 0, 0, 0.01),
+                0 0 40px rgba(0, 0, 0, 0.008);
+  }
+  56% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01),
+                0 0 0 16px rgba(0, 0, 0, 0.008),
+                0 0 30px rgba(0, 0, 0, 0.005);
+  }
+  58% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.008),
+                0 0 0 8px rgba(0, 0, 0, 0.005),
+                0 0 20px rgba(0, 0, 0, 0.003);
+  }
+  60% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.005),
+                0 0 0 4px rgba(0, 0, 0, 0.003),
+                0 0 10px rgba(0, 0, 0, 0.002);
+  }
+}
+
+/* 
+ * 🌟 Dark Mode Shadow Pulse
+ * Colorful shadow animation for dark theme
+ */
+@keyframes shadowPulseInnerDark {
+  0%, 45%, 100% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
+                0 0 0 4px rgba(147, 51, 234, 0.3),
+                0 0 8px rgba(236, 72, 153, 0.2);
+  }
+  /* Expansion phase */
+  46.5% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
+                0 0 0 6px rgba(147, 51, 234, 0.3),
+                0 0 10px rgba(236, 72, 153, 0.2);
+  }
+  48% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
+                0 0 0 8px rgba(147, 51, 234, 0.3),
+                0 0 12px rgba(236, 72, 153, 0.2);
+  }
+  49.5% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
+                0 0 0 10px rgba(147, 51, 234, 0.3),
+                0 0 15px rgba(236, 72, 153, 0.2);
+  }
+  /* Peak expansion */
+  51%, 52% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.08),
+                0 0 0 36px rgba(147, 51, 234, 0.06),
+                0 0 52px rgba(236, 72, 153, 0.04);
+  }
+  /* Contraction phase */
+  54% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.06),
+                0 0 0 24px rgba(147, 51, 234, 0.04),
+                0 0 40px rgba(236, 72, 153, 0.03);
+  }
+  56% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.04),
+                0 0 0 16px rgba(147, 51, 234, 0.03),
+                0 0 30px rgba(236, 72, 153, 0.02);
+  }
+  58% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.03),
+                0 0 0 8px rgba(147, 51, 234, 0.02),
+                0 0 20px rgba(236, 72, 153, 0.01);
+  }
+  60% {
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.02),
+                0 0 0 4px rgba(147, 51, 234, 0.01),
+                0 0 10px rgba(236, 72, 153, 0.005);
+  }
+}
+
+/* 
+ * 🎴 Base Card Shadow
+ * Glass morphism effect for cards
+ */
+.base-card-shadow {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Dark mode variant */
+:is(.dark) .base-card-shadow {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* 
+ * 🔲 Ready State Shadow
+ * Initial shadow state before animation
+ */
+.shadow-ready {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+              0 0 0 4px rgba(0, 0, 0, 0.08),
+              0 0 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease-in;
+}
+
+/* Dark mode variant */
+:is(.dark) .shadow-ready {
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4),
+              0 0 0 4px rgba(147, 51, 234, 0.3),
+              0 0 8px rgba(236, 72, 153, 0.2);
+  transition: box-shadow 0.3s ease-in;
+}
+
+/* 
+ * 🤖 AI Card Shadow Animation
+ * Animated shadow effect for AI-related cards
+ */
+.ai-card-shadow {
+  position: relative;
+  z-index: 1;
+  animation: shadowPulseInner 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.3s;
+}
+
+/* Dark mode variant */
+:is(.dark) .ai-card-shadow {
+  position: relative;
+  z-index: 1;
+  animation: shadowPulseInnerDark 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.3s;
+}
+
+/* Hover effect */
+.ai-card-shadow:hover {
+  transform: translateY(-12px) scale(1.02);
+  animation-play-state: paused;
+}
+
+/* 
+ * 🎭 Card Background Effect
+ * Creates depth effect for cards
+ */
+.base-card-shadow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Dark mode variant */
+:is(.dark) .base-card-shadow::before {
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0.2) 0%,
+    rgba(147, 51, 234, 0.15) 50%,
+    transparent 100%
+  );
+}
+
+/* 
+ * 📊 Responsive Design
+ * Adjusts text animation for smaller screens
+ */
+@media (max-width: 768px) {
+  /* 
+   * 📊 Text Animation Container (Responsive)
+   * Adjusts font size and layout for smaller screens
+   */
+  .ml2 {
+    font-size: 2.5em;
+    flex-direction: column;
+    align-items: center;
+    white-space: normal;
+    min-height: 4em;
+    line-height: 1.2;
+  }
+  
+  /* 
+   * 💭 Word Container (Responsive)
+   * Adjusts spacing and alignment for word groups on smaller screens
+   */
+  .ml2 .word {
+    display: flex;
+    justify-content: center;
+    margin: 0.2em 0;
+    margin-right: 0;
+  }
+}

@@ -190,6 +190,13 @@ const captureGif = async(): Promise<void> => {
             const progressBar = '█'.repeat(filled) + '▒'.repeat(empty)
             process.stdout.write(`\r📸 Creating Screenshots: ${progressBar} ${percent}% (${i}/${TOTAL_FRAMES}) `)
             
+            // Switch theme at halfway point
+            if (i === Math.floor(TOTAL_FRAMES / 2)) {
+                console.log('\n🎨 Switching theme...')
+                await page.click('label[aria-label="Switch to light mode"]')
+                await new Promise<void>(resolve => setTimeout(resolve, 500)) 
+            }
+            
             await page.screenshot({ path: join(tmpDir, `screenshot-${i}.png`) })
             await new Promise<void>(resolve => setTimeout(resolve, FRAME_DELAY)) // Real-time capture
         }

@@ -2,6 +2,8 @@
 
 A modern, elegant text-to-speech application powered by ElevenLabs AI technology. Transform your text into natural-sounding speech with a sleek, user-friendly interface.
 
+![Demo](public/screenshot.gif)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
